@@ -7,8 +7,13 @@ This project uses K-means clustering to identify high-fare regions in NYC for Ub
 
 
 ## Data Preprocessing
-The dataset used for this project was sourced from Kaggle's ["Uber Fares Dataset"](https://www.kaggle.com/datasets/yasserh/uber-fares-dataset/data) 
+The dataset used for this project was sourced from Kaggle's [Uber Fares Dataset](https://www.kaggle.com/datasets/yasserh/uber-fares-dataset/data). 
 This dataset was chosen due to its fare amount, latitude, longitude making it suitable for this project to visualise areas in NYC where an Uber Driver can traverse to maximise their earnings.
+
+### Loading and Initial Exploration
+The CSV dataset is imported into a Pandas DataFrame using the `pd.read_csv()` function.
+Insights was gained into its structure and contents. 
+
 
 
 

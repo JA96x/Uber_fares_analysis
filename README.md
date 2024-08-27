@@ -12,10 +12,17 @@ This dataset was chosen due to its fare amount, latitude, longitude making it su
 
 ### Loading and Initial Exploration
 The CSV dataset is imported into a Pandas DataFrame using the `pd.read_csv()` function.
+Relevant columns were selected through `usecols = ['pickup_datetime','pickup_longitude', 'pickup_latitude', 'dropoff_longitude', 'dropoff_latitude', 'fare_amount']. 
 Insights was gained into its structure and contents. 
 
 ![df_info](screenshots/df.info.PNG)
 
+### Handling Missing Values 
+Rows containing missing values were dropped to data integrity and accuracy in further analysis.
+
+!(screenshots/null_values)
+
+`df = df.dropna()`
 
 
 

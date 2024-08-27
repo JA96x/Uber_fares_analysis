@@ -25,7 +25,7 @@ Rows containing missing values were dropped to data integrity and accuracy in fu
 ![null_values](screenshots/null_values.PNG)
 
 #### Removing irrelevant data
-Relevant columns were selected through `usecols = ['pickup_datetime','pickup_longitude', 'pickup_latitude', 'dropoff_longitude', 'dropoff_latitude', 'fare_amount']. Before and after ![selectcolumns](selecting_columns.PNG)
+Relevant columns were selected through `usecols = ['pickup_datetime','pickup_longitude', 'pickup_latitude', 'dropoff_longitude', 'dropoff_latitude', 'fare_amount']. Before and after ![select_columns](screenshots/selecting_columns.PNG)
 
 
 

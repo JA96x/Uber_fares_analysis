@@ -37,7 +37,7 @@ Fare amounts can not be negative, hence removed and stored in uber_df. The longi
                  (df['pickup_latitude'] >= 40.4772) &
                  (df['pickup_latitude'] <= 40.774) & (df['fare_amount'] <= 300) & (df['fare_amount'] > 0)]`
 
-![negativefares](screenshots/negatives_fares.PNG)
+![negativefares](screenshots/negative_fares.PNG)
 
 
 

@@ -42,18 +42,18 @@ Fare amounts can not be negative, hence removed and stored in uber_df. The longi
 ### Data Transformation 
 
 Columns for weekday, day, minute, month, and hour are created from the PICKUP_DATETIME column by converting it from object to datetime datatype.
-`df['pickup_datetime'] = pd.to_datetime(df['pickup_datetime'])
-df['pickup_datetime'] = df['pickup_datetime'].dt.strftime('%Y-%m-%d %H:%M:%S')
-df['pickup_datetime'] = pd.to_datetime(df['pickup_datetime'])
+`df['pickup_datetime'] = pd.to_datetime(df['pickup_datetime'])`
+`df['pickup_datetime'] = df['pickup_datetime'].dt.strftime('%Y-%m-%d %H:%M:%S')`
+`df['pickup_datetime'] = pd.to_datetime(df['pickup_datetime'])`
 
 
 
-df['weekday']=df['pickup_datetime'].dt.day_name()
-df['day']=df['pickup_datetime'].dt.day
-df['minute']=df['pickup_datetime'].dt.minute
-df['month']=df['pickup_datetime'].dt.month
-df['hour']=df['pickup_datetime'].dt.hour
-df.head()`
+`df['weekday']=df['pickup_datetime'].dt.day_name()`
+`df['day']=df['pickup_datetime'].dt.day`
+`df['minute']=df['pickup_datetime'].dt.minute`
+`df['month']=df['pickup_datetime'].dt.month`
+`df['hour']=df['pickup_datetime'].dt.hour`
+`df.head()`
 
 ![transformed](screenshots/transformed_columns.PNG)
 

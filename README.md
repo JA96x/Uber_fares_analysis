@@ -14,7 +14,7 @@ This dataset was chosen due to its fare amount, latitude, longitude making it su
 The CSV dataset is imported into a Pandas DataFrame using the `pd.read_csv()` function.
 Insights was gained into its structure and contents. 
 
-!(screenshots/df.info.PNG)
+![df_info](screenshots/df.info.PNG)
 
 
 

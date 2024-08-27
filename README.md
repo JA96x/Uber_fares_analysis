@@ -20,7 +20,7 @@ Insights was gained into its structure and contents.
 ### Handling Missing Values 
 Rows containing missing values were dropped to data integrity and accuracy in further analysis.
 
-!(screenshots/null_values)
+![null_values](screenshots/null_values.PNG)
 
 `df = df.dropna()`
 

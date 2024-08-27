@@ -1,4 +1,4 @@
-# Uber_fares_analysis
+# Optimising Earnings for Uber Drivers In New York City
 
 
 ## Executive summary

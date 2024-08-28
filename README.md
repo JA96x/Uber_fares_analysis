@@ -258,7 +258,7 @@ K-means clustering assumes spherical and equally sized clusters, which may not b
 
 ## Recommendations for Future Iterations
 
-1. Further work includes applying ARIMA models to clusters identified by K-means enhances analysis forecasting fare price trends over time for each specific cluster.
+1. Further iterations include incorporating fare amount as a feature to cluster areas with similar fare characteristics for more meaningful insight. 
 2. Use of Gap Statistic as further validation for optimal number of clusters
 3. Using DBSCAN algorithm as an alternative to K-Means Clustering as it is able to handle geospatial location data better due to accounting for actual physical distance around each point.
 

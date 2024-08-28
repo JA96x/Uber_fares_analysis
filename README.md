@@ -60,7 +60,21 @@ Columns for weekday, day, minute, month, and hour are created from the PICKUP_DA
 
 ## Exploratory Data Analysis (EDA)
 
+Exploratory Data Analysis (EDA) was conducted to gain an understanding of the dataset and extract insights prior to modeling. It was found that the average fare amount was $11.44, with the fare distribution exhibiting a positive skew. Uber pick-up frequency showed a significant increase after 8 PM, with Friday being the busiest day for trips. Outliers in the pick-up latitude and pick-up longitude were identified outside the NYC boundaries, prompting the dataset to be restricted to latitude and longitude values within NYC.A density heatmap of fare prices revealed that Upper Manhattan is a hotspot for relatively higher fare prices.
+
+
+![describe](screenshots/describe.PNG)
+
+![f](screenshots/fare_amount_histogram.PNG)
+
+![h](screenshots/distribution_of_hours.PNG)
+
+![h](screenshots/busiest_day.PNG)
+
+![h](screenshots/density_heatmap.PNG)
 
 
 
-## Analysis 
+
+
+## Results and Analysis  

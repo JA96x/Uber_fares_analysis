@@ -127,7 +127,7 @@ m
 
 ### Methodology
 
-K-means clustering enables identification of clusters of areas with similar fare characteristics across NYC regions. K-means clustering was selected due to its robustness and ease of implementation; suited for this project as this is an unsupervised learning task.
+K-means clustering enables identification of clusters of areas in NYC regions. K-means clustering was selected due to its robustness and ease of implementation; suited for this project as this is an unsupervised learning task.
 
 Overview of process:
 1. Cluster formation - Clustering the training data based on geographical coordinates identifies distinct regions

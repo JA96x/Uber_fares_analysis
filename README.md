@@ -66,21 +66,21 @@ Exploratory Data Analysis (EDA) was conducted to gain an understanding of the da
 
 ![describe](screenshots/describe.PNG)
 
-`plt.figure(figsize=(10, 6))
-plt.hist(uber_df['fare_amount'], bins=50, edgecolor='k', color='green')
-plt.title('Histogram of fare amount')
-plt.xlabel('Fare amount ($)')
-plt.ylabel('Frequency')
-plt.grid(True)
-plt.show()`
+`plt.figure(figsize=(10, 6))`
+`plt.hist(uber_df['fare_amount'], bins=50, edgecolor='k', color='green')`
+`plt.title('Histogram of fare amount')`
+`plt.xlabel('Fare amount ($)')`
+`plt.ylabel('Frequency')`
+`plt.grid(True)`
+`plt.show()`
 
 ![f](screenshots/fare_amount_histogram.PNG)
 
 `plt.hist(uber_df['hour'])
-plt.title('Distribution of Hours')
-plt.xlabel('Hour')
-plt.ylabel('frequency')
-plt.xlabel('work hour')`
+`plt.title('Distribution of Hours')`
+`plt.xlabel('Hour')`
+`plt.ylabel('frequency')`
+`plt.xlabel('work hour')`
 
 ![h](screenshots/distribution_of_hours.PNG)
 
@@ -101,20 +101,20 @@ plt.xlabel('work hour')`
 
 ![h](screenshots/busiest_day.PNG)
 
-`import folium
-from folium.plugins import HeatMap
-import pandas as pd
+`import folium`
+`from folium.plugins import HeatMap`
+`import pandas as pd`
 
 
 
-m = folium.Map(location=[40.7128, -74.0060], zoom_start=12)  # Adjust the location and zoom level as needed
+`m = folium.Map(location=[40.7128, -74.0060], zoom_start=12)`
 
-heat_data = [[row['pickup_latitude'], row['pickup_longitude'], row['fare_amount']] for index, row in uber_df.iterrows()]
+`heat_data = [[row['pickup_latitude'], row['pickup_longitude'], row['fare_amount']] for index, row in uber_df.iterrows()]`
 
-HeatMap(heat_data, radius=15, max_zoom=13).add_to(m)
+`HeatMap(heat_data, radius=15, max_zoom=13).add_to(m)`
 
-m.save('heatmap.html')
-m`
+`m.save('heatmap.html')`
+`m`
 
 ![h](screenshots/density_heatmap.PNG)
 

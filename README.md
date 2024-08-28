@@ -250,7 +250,7 @@ plt.show()
 
 ## Conclusion
 
-In this project, we employed K-means clustering to analyze taxi fares across various regions in NYC. By grouping fare data, we identified areas like Upper Manhattan and the Bronx that have higher fare prices. These valuable insights suggest that Uber drivers should frequent these regions, particularly on Fridays between 8 PM and 12 AM, to maximize their earnings and counterbalance Uber’s increasing commission charges.
+In this project, we employed K-means clustering to analyze taxi fares across various regions in NYC. By identifying regions, we observed areas such as Upper Manhattan and the Bronx that have higher fare prices. These valuable insights suggest that Uber drivers should frequent these regions, particularly on Fridays between 8 PM and 12 AM, to maximize their earnings and counterbalance Uber’s increasing commission charges.
 
 ## Limitations 
 

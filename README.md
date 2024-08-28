@@ -62,14 +62,59 @@ Columns for weekday, day, minute, month, and hour are created from the PICKUP_DA
 
 Exploratory Data Analysis (EDA) was conducted to gain an understanding of the dataset and extract insights prior to modeling. It was found that the average fare amount was $11.44, with the fare distribution exhibiting a positive skew. Uber pick-up frequency showed a significant increase after 8 PM, with Friday being the busiest day for trips. Outliers in the pick-up latitude and pick-up longitude were identified outside the NYC boundaries, prompting the dataset to be restricted to latitude and longitude values within NYC.A density heatmap of fare prices revealed that Upper Manhattan is a hotspot for relatively higher fare prices.
 
+`uber_df.describe()`
 
 ![describe](screenshots/describe.PNG)
 
+`plt.figure(figsize=(10, 6))
+plt.hist(uber_df['fare_amount'], bins=50, edgecolor='k', color='green')
+plt.title('Histogram of fare amount')
+plt.xlabel('Fare amount ($)')
+plt.ylabel('Frequency')
+plt.grid(True)
+plt.show()`
+
 ![f](screenshots/fare_amount_histogram.PNG)
+
+`plt.hist(uber_df['hour'])
+plt.title('Distribution of Hours')
+plt.xlabel('Hour')
+plt.ylabel('frequency')
+plt.xlabel('work hour')`
 
 ![h](screenshots/distribution_of_hours.PNG)
 
+`import os
+
+import plotly.express as px
+import plotly.graph_objects as go
+
+colors = ['lightslategray',] * 5
+colors[0] = 'green'
+
+fig = go.Figure(data=[go.Bar(
+    x=df['weekday'].value_counts().index,
+    y=df['weekday'].value_counts().values,
+    marker_color=colors
+)])
+fig.update_layout(title_text='Busiest days for Uber Trips')`
+
 ![h](screenshots/busiest_day.PNG)
+
+`import folium
+from folium.plugins import HeatMap
+import pandas as pd
+
+
+
+m = folium.Map(location=[40.7128, -74.0060], zoom_start=12)  # Adjust the location and zoom level as needed
+
+heat_data = [[row['pickup_latitude'], row['pickup_longitude'], row['fare_amount']] for index, row in uber_df.iterrows()]
+
+HeatMap(heat_data, radius=15, max_zoom=13).add_to(m)
+
+m.save('heatmap.html')
+m`
 
 ![h](screenshots/density_heatmap.PNG)
 

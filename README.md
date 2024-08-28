@@ -162,7 +162,6 @@ The silhouette visualizer method was used for further inspection to ensure meani
 
 `fig, ax = plt.subplots(3, 2, figsize=(15,8))`
 `for i in [2, 4]:
-
     km = KMeans(n_clusters=i, init='k-means++', n_init=10, max_iter=100, random_state=42)
     q, mod = divmod(i, 2)
 
@@ -174,7 +173,7 @@ The silhouette visualizer method was used for further inspection to ensure meani
 `plt.tight_layout()`
 `plt.show()`
 
-![h](screenshots/silhouette_scores.PNG)
+![h](screenshots/silhouette_scores_v2.PNG)
 
 
 `range_n_clusters = list(range(3, 11))`

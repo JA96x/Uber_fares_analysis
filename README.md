@@ -234,9 +234,7 @@ sns.scatterplot(data = X_train, x = 'pickup_longitude', y = 'pickup_latitude', h
 
 ![h](screenshots/clusters_visualised.PNG)
 
-The distribution of fare prices is shown across the four clusters. This visualisation helps in understanding how fare prices vary across different clusters.
-
-From the fare distribution boxplot, cluster 2 has a higher median fare amount of $30 compared to $10 for the other clusters. This cluster corresponds to Upper Manhattan which is a hub for major tourist attractions which leads to frequent surge prices. LaGuardia airport is also situated in the cluster which suggests higher likelihood of longer trips and higher fares. 
+The distribution of fare prices is shown across the four clusters. This visualisation helps in understanding how fare prices vary across different clusters. From the fare distribution boxplot, cluster 2 has a higher median fare amount of $30 compared to $10 for the other clusters. This cluster corresponds to Upper Manhattan which is a hub for major tourist attractions which leads to frequent surge prices. LaGuardia airport is also situated in the cluster which suggests higher likelihood of longer trips and higher fares. 
 
 ```
 from matplotlib.ticker import MultipleLocator, AutoMinorLocator

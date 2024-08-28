@@ -129,9 +129,14 @@ m
 
 K-means clustering enables identification of clusters of areas with similar fare characteristics across NYC regions. K-means clustering was selected due to its robustness and ease of implementation; suited for this project as this is an unsupervised learning task.
 
+Overview of process:
+1. Cluster formation - Clustering the training data based on geographical coordinates identifies distinct regions
+2. Cluster analysis - After clustering, the distribution of fare amount within each cluster is analysed
+3. Insight - Analysis reveals trends in fare amount across different geographical clusters
+
 ### Normalising the data 
 
-When using distance-based algorithms like K-means clustering, it’s crucial to normalize the data. Without normalization, variables with different scales will be weighted unevenly in the distance formula optimized during training. For instance, if we include price along with latitude and longitude in the clustering process, the price would disproportionately influence the optimization due to its significantly larger and broader scale compared to the bounded location variables.
+When using distance-based algorithms like K-means clustering, it’s crucial to normalize the data. Without normalization, variables with different scales will be weighted unevenly in the distance formula optimized during training.
 
 ```
 from sklearn.model_selection import train_test_split
@@ -218,6 +223,7 @@ plt.show()
 
 ### Deploying K-means Clustering
 
+Optimal number of clusters selected was 4 for n_clusters attribute, n_init set to "auto" - this defines number of iterations the algorithm will run with different centroid seeds. The model is fitten to the normalised training data using the fit() method.
 ```
 from sklearn.cluster import KMeans
 kmeans = KMeans(n_clusters = 4, random_state = 0, n_init='auto')
@@ -233,7 +239,9 @@ sns.scatterplot(data = X_train, x = 'pickup_longitude', y = 'pickup_latitude', h
 
 ![h](screenshots/clusters_visualised.PNG)
 
-The distribution of fare prices is shown across the four clusters.  From the fare distribution boxplot, cluster 2 has a higher median fare amount of $30 compared to $10 for the other clusters. This cluster corresponds to Upper Manhattan which is a hub for major tourist attractions which leads to frequent surge prices. LaGuardia airport is also situated in the cluster which suggests higher likelihood of longer trips and higher fares. 
+The distribution of fare prices is shown across the four clusters. This visualisation helps in understanding how fare prices vary across different clusters.
+
+From the fare distribution boxplot, cluster 2 has a higher median fare amount of $30 compared to $10 for the other clusters. This cluster corresponds to Upper Manhattan which is a hub for major tourist attractions which leads to frequent surge prices. LaGuardia airport is also situated in the cluster which suggests higher likelihood of longer trips and higher fares. 
 
 ```
 from matplotlib.ticker import MultipleLocator, AutoMinorLocator

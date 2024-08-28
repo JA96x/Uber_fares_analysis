@@ -32,10 +32,10 @@ Relevant columns were selected through `usecols = ['pickup_datetime','pickup_lon
 #### Removing outliers
 Fare amounts can not be negative, hence removed and stored in uber_df. The longitude and latitude are restricted to New York as outliers outside this location was found (discovered later). 
 
-`uber_df = df[(df['pickup_longitude'] >= -74.2591) &
+```uber_df = df[(df['pickup_longitude'] >= -74.2591) &
                  (df['pickup_longitude'] <= -73.7004) &
                  (df['pickup_latitude'] >= 40.4772) &
-                 (df['pickup_latitude'] <= 40.774) & (df['fare_amount'] <= 300) & (df['fare_amount'] > 0)]`
+                 (df['pickup_latitude'] <= 40.774) & (df['fare_amount'] <= 300) & (df['fare_amount'] > 0)]```
 
 ![negativefares](screenshots/negative_fares.PNG)
 

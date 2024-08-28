@@ -32,10 +32,12 @@ Relevant columns were selected through `usecols = ['pickup_datetime','pickup_lon
 #### Removing outliers
 Fare amounts can not be negative, hence removed and stored in uber_df. The longitude and latitude are restricted to New York as outliers outside this location was found (discovered later). 
 
-`uber_df = df[(df['pickup_longitude'] >= -74.2591) &
+```
+uber_df = df[(df['pickup_longitude'] >= -74.2591) &
                  (df['pickup_longitude'] <= -73.7004) &
                  (df['pickup_latitude'] >= 40.4772) &
-                 (df['pickup_latitude'] <= 40.774) & (df['fare_amount'] <= 300) & (df['fare_amount'] > 0)]`
+                 (df['pickup_latitude'] <= 40.774) & (df['fare_amount'] <= 300) & (df['fare_amount'] > 0)]
+```
 
 ![negativefares](screenshots/negative_fares.PNG)
 
@@ -46,9 +48,8 @@ Columns for weekday, day, minute, month, and hour are created from the PICKUP_DA
 df['pickup_datetime'] = pd.to_datetime(df['pickup_datetime'])
 df['pickup_datetime'] = df['pickup_datetime'].dt.strftime('%Y-%m-%d %H:%M:%S')
 df['pickup_datetime'] = pd.to_datetime(df['pickup_datetime'])
-
-
-
+```
+```
 df['weekday']=df['pickup_datetime'].dt.day_name()
 df['day']=df['pickup_datetime'].dt.day
 df['minute']=df['pickup_datetime'].dt.minute
@@ -64,59 +65,60 @@ df.head()
 
 Exploratory Data Analysis (EDA) was conducted to gain an understanding of the dataset and extract insights prior to modeling. It was found that the average fare amount was $11.44, with the fare distribution exhibiting a positive skew. Uber pick-up frequency showed a significant increase after 8 PM, with Friday being the busiest day for trips. Outliers in the pick-up latitude and pick-up longitude were identified outside the NYC boundaries, prompting the dataset to be restricted to latitude and longitude values within NYC.A density heatmap of fare prices revealed that Upper Manhattan is a hotspot for relatively higher fare prices.
 
-`uber_df.describe()`
+```
+uber_df.describe()
+```
 
 ![describe](screenshots/describe.PNG)
 
-`plt.figure(figsize=(10, 6))`
-`plt.hist(uber_df['fare_amount'], bins=50, edgecolor='k', color='green')`
-`plt.title('Histogram of fare amount')`
-`plt.xlabel('Fare amount ($)')`
-`plt.ylabel('Frequency')`
-`plt.grid(True)`
-`plt.show()`
+```
+plt.figure(figsize=(10, 6))
+plt.hist(uber_df['fare_amount'], bins=50, edgecolor='k', color='green')
+plt.title('Histogram of fare amount')
+plt.xlabel('Fare amount ($)')
+plt.ylabel('Frequency')
+plt.grid(True)
+plt.show()
+```
 
 ![f](screenshots/fare_amount_histogram.PNG)
 
-`plt.hist(uber_df['hour'])
-`plt.title('Distribution of Hours')`
-`plt.xlabel('Hour')`
-`plt.ylabel('frequency')`
-`plt.xlabel('work hour')`
+```
+plt.hist(uber_df['hour'])
+plt.title('Distribution of Hours')
+plt.xlabel('Hour')
+plt.ylabel('frequency')
+plt.xlabel('work hour')
+```
 
 ![h](screenshots/distribution_of_hours.PNG)
 
-`import os`
-
-`import plotly.express as px`
-`import plotly.graph_objects as go`
-
-`colors = ['lightslategray',] * 5`
-`colors[0] = 'green'`
-
-`fig = go.Figure(data=[go.Bar(
+```
+import os
+import plotly.express as px
+import plotly.graph_objects as go
+colors = ['lightslategray',] * 5`
+colors[0] = 'green'
+fig = go.Figure(data=[go.Bar(
     x=df['weekday'].value_counts().index,
     y=df['weekday'].value_counts().values,
     marker_color=colors
-)])`
-`fig.update_layout(title_text='Busiest days for Uber Trips')`
+)])
+fig.update_layout(title_text='Busiest days for Uber Trips')
+```
 
 ![h](screenshots/busiest_day.PNG)
 
-`import folium`
-`from folium.plugins import HeatMap`
-`import pandas as pd`
-
-
-
-`m = folium.Map(location=[40.7128, -74.0060], zoom_start=12)`
-
-`heat_data = [[row['pickup_latitude'], row['pickup_longitude'], row['fare_amount']] for index, row in uber_df.iterrows()]`
-
-`HeatMap(heat_data, radius=15, max_zoom=13).add_to(m)`
-
-`m.save('heatmap.html')`
-`m`
+```
+import folium
+from folium.plugins import HeatMap
+import pandas as pd
+m = folium.Map(location=[40.7128, -74.0060], zoom_start=12)
+heat_data = [[row['pickup_latitude'], row['pickup_longitude'], row['fare_amount']] for index, row in uber_df.iterrows()]
+HeatMap(heat_data, radius=15, max_zoom=13).add_to(m)
+m.save('heatmap.html')
+m
+```
 
 ![h](screenshots/density_heatmap.PNG)
 
@@ -127,7 +129,19 @@ Exploratory Data Analysis (EDA) was conducted to gain an understanding of the da
 
 K-means clustering enables identification of clusters of areas with similar fare characteristics across NYC regions. K-means clustering was selected due to its robustness and ease of implementation; suited for this project as this is an unsupervised learning task.
 
+### Normalising the data 
 
+When using distance-based algorithms like K-means clustering, it’s crucial to normalize the data. Without normalization, variables with different scales will be weighted unevenly in the distance formula optimized during training. For instance, if we include price along with latitude and longitude in the clustering process, the price would disproportionately influence the optimization due to its significantly larger and broader scale compared to the bounded location variables.
+
+```
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(uber_df[['pickup_latitude', 'pickup_longitude']], uber_df[['fare_amount']], test_size=0.33, random_state=0)
+```
+```
+from sklearn import preprocessing
+X_train_norm = preprocessing.normalize(X_train)
+X_test_norm = preprocessing.normalize(X_test)
+```
 
 ### Elbow Method
 
@@ -135,19 +149,20 @@ The optimal number of clusters was determined by the Elbow method which plots th
 
 The elbow method showed two inflections points at the n_clusters value of 2 and 4.  This requires additional evaluation as the number of clusters is not apparent.
 
-`sse = []`
-`k_range = range(1, 11)`
-`for k in k_range:
+```
+sse = []
+k_range = range(1, 11)
+for k in k_range:
     kmeans = KMeans(n_clusters=k, random_state=42)
     kmeans.fit(X_train)
-    sse.append(kmeans.inertia_)`
-
-`plt.figure(figsize=(10, 6))`
-`plt.plot(k_range, sse, 'bx-')`
-`plt.xlabel('Number of clusters')`
-`plt.ylabel('Sum of squared distances')`
-`plt.title('Elbow Method For Optimal k')`
-`plt.show()`
+    sse.append(kmeans.inertia_)
+plt.figure(figsize=(10, 6))
+plt.plot(k_range, sse, 'bx-')
+plt.xlabel('Number of clusters')
+plt.ylabel('Sum of squared distances')
+plt.title('Elbow Method For Optimal k')
+plt.show()
+```
 
 ![h](screenshots/elbow_method.PNG)
 
@@ -157,83 +172,78 @@ Silhouette visualiser method is also employed to validate the number and quality
 
 The silhouette visualizer method was used for further inspection to ensure meaningful clustering and to assess cluster quality. The clusters for each n_cluster should have silhouette scores greater than the average silhouette score of the dataset (indicated by the dotted red line), which n_cluster = 2 fails to achieve—an approach proposed by researchers. An n_cluster = 4 is selected as the optimal number of clusters, with a silhouette score of 0.48, indicating moderate clustering quality.
 
-`from sklearn import datasets`
-`from sklearn.cluster import KMeans`
-`import matplotlib.pyplot as plt`
-`from yellowbrick.cluster import SilhouetteVisualizer`
+```
+from sklearn import datasets
+from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
+from yellowbrick.cluster import SilhouetteVisualizer
 
-`fig, ax = plt.subplots(3, 2, figsize=(15,8))`
-`for i in [2, 4]:
+fig, ax = plt.subplots(3, 2, figsize=(15,8))
+for i in [2, 4]:
     km = KMeans(n_clusters=i, init='k-means++', n_init=10, max_iter=100, random_state=42)
     q, mod = divmod(i, 2)
 
     visualizer = SilhouetteVisualizer(km, colors='yellowbrick', ax=ax[q-1][mod])
     visualizer.fit(X_train)
     visualizer.ax.set_ylabel(f'Cluster {i}')
-    visualizer.ax.set_xlabel('Average Silhouette Score')`
-
-`plt.tight_layout()`
-`plt.show()`
+    visualizer.ax.set_xlabel('Average Silhouette Score')
+plt.tight_layout()
+plt.show()
+```
 
 ![h](screenshots/silhouette_scores_v2.PNG)
 
 
-`range_n_clusters = list(range(3, 11))`
+```
+range_n_clusters = list(range(3, 11))
 
-`silhouette_scores = []`
+silhouette_scores = []
 
-`for n_clusters in range_n_clusters:
+for n_clusters in range_n_clusters:
     kmeans = KMeans(n_clusters=n_clusters, random_state=42)
     cluster_labels = kmeans.fit_predict(X_train)
     silhouette_avg = silhouette_score(X_train, cluster_labels)
-    silhouette_scores.append(silhouette_avg)`
+    silhouette_scores.append(silhouette_avg)
 
-`plt.figure(figsize=(10, 6))`
-`plt.plot(range_n_clusters, silhouette_scores, marker='o')`
-`plt.title('Silhouette Scores for Different Numbers of Clusters')`
-`plt.xlabel('Number of Clusters (k)')`
-`plt.ylabel('Silhouette Score')`
-`plt.grid(True)`
-`plt.show()`
-
+plt.figure(figsize=(10, 6))
+plt.plot(range_n_clusters, silhouette_scores, marker='o')
+plt.title('Silhouette Scores for Different Numbers of Clusters')
+plt.xlabel('Number of Clusters (k)')
+plt.ylabel('Silhouette Score')
+plt.grid(True)
+plt.show()
+```
 ![h](screenshots/silhouette_scores_clusters.PNG)
 
 
 ### Deploying K-means Clustering
 
-`from sklearn.model_selection import train_test_split`
-
-`X_train, X_test, y_train, y_test = train_test_split(uber_df[['pickup_latitude', 'pickup_longitude']], uber_df[['fare_amount']], test_size=0.33, random_state=0)`
-
-`from sklearn.cluster import KMeans`
-
-`kmeans = KMeans(n_clusters = 4, random_state = 0, n_init='auto')`
-`kmeans.fit(X_train)`
+```
+from sklearn.cluster import KMeans
+kmeans = KMeans(n_clusters = 4, random_state = 0, n_init='auto')
+kmeans.fit(X_train)
+```
 
 ### Results 
 
 The clusters generated by K-means algorithm is visualised. Data is split into 4 distinct groups.
-`sns.scatterplot(data = X_train, x = 'pickup_longitude', y = 'pickup_latitude', hue = kmeans.labels_)`
+```
+sns.scatterplot(data = X_train, x = 'pickup_longitude', y = 'pickup_latitude', hue = kmeans.labels_)
+```
 
 ![h](screenshots/clusters_visualised.PNG)
 
 The distribution of fare prices is shown across the four clusters (figure 15).  From the fare distribution boxplot, cluster 2 has a higher median fare amount of $30 compared to $10 for the other clusters. This cluster corresponds to Upper Manhattan which is a hub for major tourist attractions which leads to frequent surge prices. LaGuardia airport is also situated in the cluster which suggests higher likelihood of longer trips and higher fares. 
 
-`from matplotlib.ticker import MultipleLocator, AutoMinorLocator`
-`sns.boxplot(x = kmeans.labels_, y = y_train['fare_amount'])`
-
-`ax = plt.gca()`
-
-`ax.yaxis.set_major_locator(MultipleLocator(10))`
-
-
-`ax.yaxis.set_minor_locator(MultipleLocator(5))`
-
-
-`ax.grid(which='minor', linestyle=':', linewidth='0.5', color='gray')`
-
-
-`plt.show()`
+```
+from matplotlib.ticker import MultipleLocator, AutoMinorLocator
+sns.boxplot(x = kmeans.labels_, y = y_train['fare_amount'])
+ax = plt.gca()
+ax.yaxis.set_major_locator(MultipleLocator(10))
+ax.yaxis.set_minor_locator(MultipleLocator(5))
+ax.grid(which='minor', linestyle=':', linewidth='0.5', color='gray')
+plt.show()
+```
 
 ![h](screenshots/fare_distribution_boxplot.PNG)
 

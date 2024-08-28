@@ -262,6 +262,9 @@ K-means clustering assumes spherical and equally sized clusters, which may not b
 
 ## References 
 
+1. [Silhouette Scores Visualiser Method](https://scikit-learn.org/stable/auto_examples/cluster/plot_kmeans_silhouette_analysis.html)
+2. [Gap statistic validation](https://academic.oup.com/jrsssb/article/63/2/411/7083348)
+3. [DBSCAN - An alternative to K-Means Clustering for geospatial data](https://www.scalesology.com/post/choosing-the-right-geospatial-clustering-algorithm-for-your-business-need)
 
 
 

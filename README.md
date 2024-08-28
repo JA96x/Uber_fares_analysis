@@ -84,20 +84,20 @@ plt.xlabel('work hour')`
 
 ![h](screenshots/distribution_of_hours.PNG)
 
-`import os
+`import os`
 
-import plotly.express as px
-import plotly.graph_objects as go
+`import plotly.express as px`
+`import plotly.graph_objects as go`
 
-colors = ['lightslategray',] * 5
-colors[0] = 'green'
+`colors = ['lightslategray',] * 5`
+`colors[0] = 'green'`
 
-fig = go.Figure(data=[go.Bar(
+`fig = go.Figure(data=[go.Bar(
     x=df['weekday'].value_counts().index,
     y=df['weekday'].value_counts().values,
     marker_color=colors
-)])
-fig.update_layout(title_text='Busiest days for Uber Trips')`
+)])`
+`fig.update_layout(title_text='Busiest days for Uber Trips')`
 
 ![h](screenshots/busiest_day.PNG)
 

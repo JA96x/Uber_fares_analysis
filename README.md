@@ -134,19 +134,14 @@ Overview of process:
 2. Cluster analysis - After clustering, the distribution of fare amount within each cluster is analysed
 3. Insight - Analysis reveals trends in fare amount across different geographical clusters
 
-### Normalising the data 
-
-When using distance-based algorithms like K-means clustering, it’s crucial to normalize the data. Without normalization, variables with different scales will be weighted unevenly in the distance formula optimized during training.
+### Train-test split 
+*Note: Data is only split here in preparation for future iterations where clusters maybe used as features in a supervised learning model.*
 
 ```
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(uber_df[['pickup_latitude', 'pickup_longitude']], uber_df[['fare_amount']], test_size=0.33, random_state=0)
 ```
-```
-from sklearn import preprocessing
-X_train_norm = preprocessing.normalize(X_train)
-X_test_norm = preprocessing.normalize(X_test)
-```
+
 
 ### Elbow Method
 
